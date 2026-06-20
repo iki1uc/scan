@@ -2,84 +2,41 @@
 <html lang="de">
 <head>
   <meta charset="utf-8">
-  <title>PRIMidORDIUM-36 – Universal Layer</title>
+  <title>index – online test</title>
   <style>
-    body { margin:0; background:#000; color:#0f0; font-family:monospace;
-           display:flex; flex-direction:column; align-items:center; justify-content:center;
-           height:100vh; }
-    #stage { width:300px; height:300px; position:relative; }
-    .cell {
-      position:absolute; width:40px; height:40px; border:1px solid #0f0;
-      display:flex; align-items:center; justify-content:center;
-      font-size:10px; transition:all .8s ease;
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+      color: #0f0;
+      font-family: monospace;
     }
-    #info { margin-top:20px; text-align:center; font-size:12px; }
-    #version { margin-top:10px; opacity:.6; }
+    #box {
+      padding: 20px 30px;
+      border: 1px solid #0f0;
+      text-align: center;
+    }
+    #version {
+      margin-top: 10px;
+      opacity: .7;
+      font-size: 12px;
+    }
   </style>
 </head>
 <body>
 
-  <div id="stage"></div>
-  <div id="info"></div>
-  <div id="version">v001</div>
+  <div id="box">
+    <div>INDEX ONLINE</div>
+    <div>STATUS: OK</div>
+    <div id="version">v001</div>
+  </div>
 
   <script>
-    const stage = document.getElementById('stage');
-    const info  = document.getElementById('info');
-
-    // 36E – Grundalphabet
-    const cells = [];
-    for (let i = 0; i < 36; i++) {
-      const c = document.createElement('div');
-      c.className = 'cell';
-      c.textContent = i + 1;
-      stage.appendChild(c);
-      cells.push(c);
-    }
-
-    // 6E – außen/innen Umschaltung
-    let mode = "aussen"; // default
-
-    function chaos() {
-      cells.forEach(c => {
-        c.style.left = (Math.random() * 260) + 'px';
-        c.style.top  = (Math.random() * 260) + 'px';
-      });
-      info.textContent = "CHAOS · 36E · 6E-" + mode + " · 16 Seiten Druck";
-    }
-
-    function sixE() {
-      const r = mode === "aussen" ? 120 : 40;
-      const cx = 130, cy = 130;
-      cells.forEach((c, i) => {
-        const a = (i / 36) * Math.PI * 2;
-        c.style.left = (cx + Math.cos(a) * r) + "px";
-        c.style.top  = (cy + Math.sin(a) * r) + "px";
-      });
-      info.textContent = "6E-" + mode + " · 36E im Zusammenspiel";
-    }
-
-    function root() {
-      const cx = 130, cy = 130;
-      cells.forEach((c, i) => {
-        const a = (i / 36) * Math.PI * 2;
-        const r = 20;
-        c.style.left = (cx + Math.cos(a) * r) + "px";
-        c.style.top  = (cy + Math.sin(a) * r) + "px";
-      });
-      info.textContent = "ROOT (1=3) · Orbit 12/50 · Korrektur 1 Schritt";
-    }
-
-    // 3‑Sekunden‑Universal‑Layer
-    chaos();
-    setTimeout(sixE, 1000);
-    setTimeout(root, 2000);
-
-    // Umschalten 6E außen/innen
-    document.body.addEventListener("click", () => {
-      mode = mode === "aussen" ? "innen" : "aussen";
-      sixE();
-    });
+    console.log("index.html online aktiv");
   </script>
 
 </body>
