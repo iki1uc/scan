@@ -1,1 +1,85 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <title>PRIMidORDIUM-36 – Layer Demo</title>
+  <style>
+    body { margin:0; background:#000; color:#0f0; font-family:monospace; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; }
+    #stage { width:260px; height:260px; position:relative; }
+    .cell {
+      position:absolute;
+      width:40px; height:40px;
+      border:1px solid #0f0;
+      box-sizing:border-box;
+      display:flex; align-items:center; justify-content:center;
+      font-size:10px;
+      transition:all 0.8s ease;
+    }
+    #info { margin-top:16px; text-align:center; font-size:12px; line-height:1.4; }
+  </style>
+</head>
+<body>
+  <div id="stage"></div>
+  <div id="info"></div>
+
+  <script>
+    const stage = document.getElementById('stage');
+    const info  = document.getElementById('info');
+
+    // 36 Einheiten
+    const cells = [];
+    for (let i = 0; i < 36; i++) {
+      const c = document.createElement('div');
+      c.className = 'cell';
+      c.textContent = i + 1;
+      stage.appendChild(c);
+      cells.push(c);
+    }
+
+    function chaos() {
+      cells.forEach(c => {
+        c.style.left = (Math.random() * 220) + 'px';
+        c.style.top  = (Math.random() * 220) + 'px';
+      });
+      info.textContent = 'Zustand: CHAOS · 36E · 6E-Stand möglich · 16 Seiten Druck';
+    }
+
+    function fourRig() {
+      const size = 3; // 3x3 pro Quadrant = 9*4 = 36
+      const cellSize = 40;
+      cells.forEach((c, i) => {
+        const q = Math.floor(i / 9);      // 0..3 Quadrant
+        const p = i % 9;                  // 0..8 Position im Quadrant
+        const row = Math.floor(p / size); // 0..2
+        const col = p % size;             // 0..2
+
+        const offsetX = (q % 2) * (cellSize * size + 10);
+        const offsetY = Math.floor(q / 2) * (cellSize * size + 10);
+
+        c.style.left = (offsetX + col * cellSize) + 'px';
+        c.style.top  = (offsetY + row * cellSize) + 'px';
+      });
+      info.textContent = 'Zustand: 4-RIG · Q1 Q2 Q3 Q4 · 36E im Zusammenspiel';
+    }
+
+    function root() {
+      const centerX = 110;
+      const centerY = 110;
+      cells.forEach((c, i) => {
+        const angle = (i / 36) * Math.PI * 2;
+        const r = 40;
+        c.style.left = (centerX + Math.cos(angle) * r) + 'px';
+        c.style.top  = (centerY + Math.sin(angle) * r) + 'px';
+      });
+      info.textContent =
+        'Zustand: ROOT (1=3) · Orbit: 12/50 · Korrektur: 1 Schritt · Pool: 12/100';
+    }
+
+    // 3-Sekunden-Clip: CHAOS → 4-RIG → ROOT
+    chaos();
+    setTimeout(fourRig, 1000);
+    setTimeout(root, 2000);
+  </script>
+</body>
+</html>
 
